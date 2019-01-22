@@ -25,14 +25,23 @@ class KitChestGiveCommand extends PluginCommand{
         if(!$sender->hasPermission("kit.give")){
             $sender->sendMessage(TextFormat::RED . "You do not have permission to use this command.");
         }
-        if(!isset($args[0])){
-            $sender->sendMessage("Usage: /kitgive <kit name>");
+        if(!isset($args[1])){
+            $sender->sendMessage("Usage: /kitgive <kit name> <player>");
             return false;
         }
+        $player = $args[1];
+        if (!($player instanceof Player)) {
+            $sender->sendMessage(TextFormat::RED . "The player $args[1] is either not online or does not exist.");
+            return true;
+        }
         if($args[0] === "test"){
-            $inv = $sender->getInventory();
+             $player = $args[1];
+            $inv = $args[1]->getInventory();
             $inv->addItem(Item::get(Item::CHEST, 10, 1)->setCustomName(TextFormat::GREEN . "Test Kit"));
-            $sender->sendMessage(TextFormat::GREEN . "You have now received the Test Kit!");
+            if($player instanceof Player){
+            $sender->sendMessage(TextFormat::GREEN . "You have given $args[1] a $args[0] kit!");
+                $senderName = $sender->getName();
+                $player->sendMessage(TextFormat::GREEN . "You have been given the $args[1] kit by $senderName!);
         }
         return true;
     }
