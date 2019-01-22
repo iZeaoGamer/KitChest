@@ -41,7 +41,7 @@ class KitChestGiveCommand extends PluginCommand{
             if($player instanceof Player){
             $sender->sendMessage(TextFormat::GREEN . "You have given $args[1] a $args[0] kit!");
                 $senderName = $sender->getName();
-                $player->sendMessage(TextFormat::GREEN . "You have been given the $args[1] kit by $senderName!);
+                $player->sendMessage(TextFormat::GREEN . "You have been given the $args[1] kit by $senderName!");
         }
         return true;
     }
